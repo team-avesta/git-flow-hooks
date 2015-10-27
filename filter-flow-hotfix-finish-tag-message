@@ -22,6 +22,7 @@ SCRIPT_PATH="$0"; while [ -h "$SCRIPT_PATH" ]; do SCRIPT_PATH=$(readlink "$SCRIP
 . "$(dirname $SCRIPT_PATH)/modules/functions.sh"
 
 . "$HOOKS_DIR/modules/format-tag-message.sh"
+. "$HOOKS_DIR/modules/write-changelog.sh"
 if [ $? -ne 0 ]; then
     exit 1
 fi
