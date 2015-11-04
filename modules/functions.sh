@@ -46,3 +46,35 @@ function __get_release_version_bumplevel {
 
     echo $VERSION_BUMPLEVEL_RELEASE
 }
+
+function __get_current_version {
+    # read git tags
+    VERSION_PREFIX=$(git config --get gitflow.prefix.versiontag)
+    VERSION_TAG=$(git tag -l "$VERSION_PREFIX*" | $VERSION_SORT | tail -1)
+
+    if [ ! -z "$VERSION_TAG" ]; then
+        if [ ! -z "$VERSION_PREFIX" ]; then
+            VERSION_CURRENT=${VERSION_TAG#$VERSION_PREFIX}
+        else
+            VERSION_CURRENT=$VERSION_TAG
+        fi
+    fi
+
+    echo $VERSION_CURRENT
+}
+
+function __get_use_changelog {
+    if [ -z "$CHANGELOG_ENABLED" ]; then
+        CHANGELOG_ENABLED=false
+    fi
+
+    echo $CHANGELOG_ENABLED
+}
+
+function __get_changelog_file_name {
+    if [ -z "$CHANGELOG_FILE" ]; then
+        CHANGELOG_FILE="CHANGELOG"
+    fi
+
+    echo $CHANGELOG_FILE
+}
