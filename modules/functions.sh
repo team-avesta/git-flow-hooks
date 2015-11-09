@@ -78,3 +78,12 @@ function __get_changelog_file_name {
 
     echo $CHANGELOG_FILE
 }
+
+function __get_notify_to_slack {
+    NOTIFY_TO_SLACK=false
+    if [ -n "${SLACK_WEBHOOK_URL}" ]; then
+        NOTIFY_TO_SLACK=true
+    fi
+
+    echo $NOTIFY_TO_SLACK
+}
