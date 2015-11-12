@@ -27,29 +27,22 @@ if [[ $ACTION == "finished" ]]; then
 
   VERSION_PREFIX=$(git config --get gitflow.prefix.versiontag)
   VERSION="$VERSION_PREFIX$VERSION_CURRENT"
-  echo $VERSION
-
   PREV_VERSION=$(git describe --abbrev=0 --tags $(git rev-list --tags --max-count=2) | tail -1)
 
-  CHANGES=$(git log --no-merges --pretty=format:" * %s (%an)" "$VERSION"..."$PREV_VERSION")
-  echo $CHANGES
+  CHANGES=$(git log --no-merges --pretty=format:"%s (%an)\n" "$VERSION"..."$PREV_VERSION")
   SLACK_MESSAGE="$SLACK_MESSAGE\n\nChanges:\n$CHANGES"
 fi
 
 
 if [[ $ACTION == "started" ]]; then
-  echo "$COMMAND/$CURRENT_VERSION"
-
   PREV_VERSION=$(git describe --abbrev=0 --tags $(git rev-list --tags --max-count=1))
 
-  CHANGES=$(git log --no-merges --pretty=format:" * %s (%an)" "$COMMAND/$CURRENT_VERSION"..."$PREV_VERSION")
-  echo $CHANGES
+  CHANGES=$(git log --no-merges --pretty=format:"%s (%an)\n" "$COMMAND/$CURRENT_VERSION"..."$PREV_VERSION")
   SLACK_MESSAGE="$SLACK_MESSAGE\n\nChanges:\n$CHANGES"
 fi
 
-echo $SLACK_MESSAGE
+SLACK_MESSAGE=`echo $SLACK_MESSAGE | sed "s/\"/'/g"`
 
 curl -s \
   -d "payload={\"text\":\"$SLACK_MESSAGE\"}" \
-  $SLACK_WEBHOOK_URL \
-  > /dev/null
+  $SLACK_WEBHOOK_URL
