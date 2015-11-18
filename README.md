@@ -20,7 +20,7 @@ Install
 Clone this repository somewhere on your disk.
 
 ```sh
-git clone git@github.com:jaspernbrouwer/git-flow-hooks.git
+git clone git@github.com:accessd/git-flow-hooks.git
 ```
 
 Whenever your read `/path/to/git-flow-hooks`, replace it with the actual path to your clone/working copy.
