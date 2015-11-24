@@ -27,7 +27,7 @@ if [[ $ACTION == "finished" ]]; then
 
   VERSION_PREFIX=$(git config --get gitflow.prefix.versiontag)
   VERSION="$VERSION_PREFIX$VERSION_CURRENT"
-  PREV_VERSION=$(git describe --abbrev=0 --tags $(git rev-list --tags --max-count=2) | tail -1)
+  PREV_VERSION=$(git describe --abbrev=0 --tags $(git rev-list --tags --max-count=2) | $VERSION_SORT -V | head -1)
 
   CHANGES=$(git log --no-merges --pretty=format:"%s (%an)\n" "$VERSION"..."$PREV_VERSION")
   SLACK_MESSAGE="$SLACK_MESSAGE\n\nChanges:\n$CHANGES"
