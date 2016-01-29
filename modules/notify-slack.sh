@@ -21,7 +21,7 @@ CURRENT_VERSION=$2
 ACTION=$3
 
 USER=`git config user.name`
-SLACK_MESSAGE="$COMMAND/$CURRENT_VERSION $ACTION by $USER"
+SLACK_MESSAGE="\`$COMMAND/$CURRENT_VERSION\` $ACTION by $USER"
 
 if [[ $ACTION == "finished" ]]; then
   VERSION_CURRENT=$(__get_current_version)
