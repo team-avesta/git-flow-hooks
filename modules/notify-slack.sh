@@ -44,6 +44,4 @@ fi
 
 SLACK_MESSAGE=`echo $SLACK_MESSAGE | sed "s/\"/'/g"`
 
-curl -s \
-  -d "payload={\"text\":\"$SLACK_MESSAGE\"}" \
-  $SLACK_WEBHOOK_URL
+curl -X POST -s --data-urlencode "payload={\"text\":\"$SLACK_MESSAGE\"}" $SLACK_WEBHOOK_URL
