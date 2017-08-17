@@ -17,4 +17,9 @@ if [ $? -ne 0 ]; then
     HOOK_STATUS=1
 fi
 
+# grunt lint
+# if [ $? -ne 0 ]; then
+#     HOOK_STATUS=1
+# fi
+
 exit $HOOK_STATUS
